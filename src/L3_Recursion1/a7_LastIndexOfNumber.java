@@ -23,4 +23,23 @@ Sample Output :
 3
  */
 public class a7_LastIndexOfNumber {
+
+    public static int lastIndex(int input[], int x, int startIndex){
+        if( startIndex == input.length-1){
+            return input[startIndex] == x ? startIndex : -1 ;
+        }
+        int ans = -1;
+        ans = lastIndex(input,x,startIndex+1);
+        if(input[startIndex] == x && ans<0)
+            ans = startIndex;
+        return ans;
+    }
+
+    public static int lastIndex(int input[], int x) {
+        return lastIndex(input,x,0);
+    }
+    public static void main(String[] args) {
+        int arr[] = {2,1,3,5,1,8};
+        System.out.println(lastIndex(arr,1));
+    }
 }
