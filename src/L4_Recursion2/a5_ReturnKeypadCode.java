@@ -27,11 +27,37 @@ cf
  */
 public class a5_ReturnKeypadCode {
 
+
+    public static String[] helper(int n){
+        if(n==2) return new String[]{"a","b","c"};
+        else if(n==3) return new String[]{"d","e","f"};
+        else if(n==4) return new String[]{"g","h","i"};
+        else if(n==5) return new String[]{"j","k","l"};
+        else if(n==6) return new String[]{"m","n","o"};
+        else if(n==7) return new String[]{"p","q","r","s"};
+        else if(n==8) return new String[]{"t","u","v"};
+        else if(n==9) return new String[]{"w","x","y","z"};
+        else return new String[]{""};
+    }
     // Return a string array that contains all the possible strings
     public static String[] keypad(int n){
         // Write your code here
+        if(n<=1){
+            String[] ans = {""};
+            return ans;
+        }
 
-        return new String[0];
+        String smallAns[] = keypad(n/10);
+        String[] keyLetters = helper(n%10);
+        String[] ans = new String[smallAns.length* keyLetters.length];
+        int i,j,k   = 0;
+        for(i = 0;i<smallAns.length;i++){
+            for(j = 0;j<keyLetters.length ;j++){
+                ans[k] = smallAns[i] + keyLetters[j] ;
+                k++;
+            }
+        }
+        return ans;
     }
 
 }

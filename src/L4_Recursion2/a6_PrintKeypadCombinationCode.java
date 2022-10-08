@@ -24,8 +24,30 @@ ce
 cf
  */
 public class a6_PrintKeypadCombinationCode {
-    public static void printKeypad(int input){
-        // Write your code here
+    public static String[] helper(int n){
+        if(n==2) return new String[]{"a","b","c"};
+        else if(n==3) return new String[]{"d","e","f"};
+        else if(n==4) return new String[]{"g","h","i"};
+        else if(n==5) return new String[]{"j","k","l"};
+        else if(n==6) return new String[]{"m","n","o"};
+        else if(n==7) return new String[]{"p","q","r","s"};
+        else if(n==8) return new String[]{"t","u","v"};
+        else if(n==9) return new String[]{"w","x","y","z"};
+        else return new String[]{""};
+    }
 
+    public static void printKeypad(int input, String output){
+        if(input == 0){
+            System.out.println(output);
+            return;
+        }
+        int i;
+        String[] keypadLetters = helper(input%10);
+        for(i = 0; i<keypadLetters.length;i++){
+            printKeypad(input/10,keypadLetters[i]+output);
+        }
+    }
+    public static void printKeypad(int input){
+        printKeypad(input,"");
     }
 }

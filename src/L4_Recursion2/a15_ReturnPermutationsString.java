@@ -22,8 +22,19 @@ cba
 public class a15_ReturnPermutationsString {
 
     public static String[] permutationOfString(String input){
-        // Write your code here
+        if(input.length()==1)
+            return new String[]{input.charAt(0)+""};
 
-        return new String[0];
+        String[] smallAns = permutationOfString(input.substring(1));
+        String[] ans = new String[smallAns.length*input.length()];
+        int k = 0;
+        for(int i = 0;i< smallAns.length;i++){
+            String currentString = smallAns[i];
+            for(int j = 0;j<= currentString.length();j++){
+                ans[k] = currentString.substring(0,j)+ input.charAt(0) + currentString.substring(j);
+                k++;
+            }
+        }
+        return ans;
     }
 }

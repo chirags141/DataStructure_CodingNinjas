@@ -20,10 +20,39 @@ Sample Output :
 5 1
  */
 public class a13_ReturnSubsetsSumToK {
-    // Return a 2D array that contains all the subsets which sum to k
-    public static int[][] subsetsSumK(int input[], int k) {
-        // Write your code here
+    public static int[][] subsetsSumK(int input[],int startIndex, int k) {
+        if(startIndex >= input.length){
+            if(k == 0){
+                return new int[][]{{}};    //return new int[1][0];
+            }else{
+                return  new int[][]{}; 	   //return  new int[0][0];
+            }
+        }
 
-        return new int[0][];
+        int[][] smallAns1 = subsetsSumK(input,startIndex+1,k-input[startIndex]);
+        int[][] smallAns2 = subsetsSumK(input,startIndex+1,k);
+
+        int[][] ans = new int[smallAns1.length+ smallAns2.length][];
+
+        int x = 0;
+        for(int i = 0;i<smallAns1.length;i++){
+            ans[i] = new int[smallAns1[i].length+1];
+            ans[i][0] = input[startIndex];
+            for (int j = 0;j< smallAns1[i].length;j++){
+                ans[i][j+1] = smallAns1[i][j];
+            }
+            x++;
+        }
+
+        for(int i = 0;i< smallAns2.length;i++){
+            ans[i+x] = new int[smallAns2[i].length];
+            for(int j = 0;j< smallAns2[i].length;j++){
+                ans[i+x][j] = smallAns2[i][j];
+            }
+        }
+        return ans;
+    }
+    public static int[][] subsetsSumK(int input[], int k) {
+        return subsetsSumK(input,0,k);
     }
 }

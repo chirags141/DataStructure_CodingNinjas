@@ -18,10 +18,40 @@ aaw
 kw
  */
 public class a14_ReturnAllCodesString {
-    // Return a string array that contains all possible codes
-    public static  String[] getCode(String input){
-        // Write your code here
+    public static char helper(String n){
+        return (char) ('a' + StringToInt(n) -1);
+    }
 
-        return new String[0];
+    public static int StringToInt(String n){
+        int num = 0;
+        for(int i = 0;i<n.length();i++){
+            num+= (n.charAt(i)-'0')* Math.pow(10,n.length()-1-i);
+        }
+        return  num;
+    }
+//     Return a string array that contains all possible codes
+
+
+
+    public static  String[] getCode(String input){
+        if (input.length() == 0)
+            return new String[]{""};
+
+        String smallAns1[] = {},smallAns2[] = {};
+
+        smallAns1 = getCode(input.substring(1));
+        if(input.length()>1 && StringToInt(input.substring(0,2))<=26){
+            smallAns2 = getCode(input.substring(2));
+        }
+        String ans[] = new String[smallAns1.length + smallAns2.length];
+        int k = 0;
+        for(int i = 0;i< smallAns1.length;i++){
+            ans[i] = helper(input.substring(0,1)) + smallAns1[i];
+            k++;
+        }
+        for(int i = 0;i< smallAns2.length;i++){
+            ans[i+k] =helper(input.substring(0,2)) + smallAns2[i];
+        }
+        return ans;
     }
 }

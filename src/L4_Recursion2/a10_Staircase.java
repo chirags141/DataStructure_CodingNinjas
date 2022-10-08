@@ -28,7 +28,12 @@ public class a10_Staircase {
          * Return output and don't print it.
          * Taking input and printing output is handled automatically.
          */
+        int ans=0;
+        if(n < 0) return 0;
+        if(n <= 1)
+            return 1;
+        int smallAns = staircase(n-1) + staircase(n-2) + staircase(n-3);
+        return ans+smallAns;
 
-        return n;
     }
 }

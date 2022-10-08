@@ -42,13 +42,42 @@ public class a4_QuickSortCode {
         }
 
     */
-    public static void quickSort(int[] input) {
-        /* Your class should be named Solution
-         * Don't write main().
-         * Don't read input, it is passed as function argument.
-         * No need to print or return the output.
-         * Taking input and printing output is handled automatically.
-         */
+    public static int partition(int a[],int startIndex,int endIndex){
+        int pivot = a[startIndex];
+        int temp,start = startIndex,end = endIndex;
+        while(start < end){
+            while(start <= endIndex && a[start] <= pivot) start++;
+            while(end >= startIndex && a[end] > pivot) end--;
+            if(start<end){
+            temp = a[start];
+            a[start] = a[end];
+            a[end] = temp;
+            }
+        }
+        temp = a[end];
+        a[end] = a[startIndex];
+        a[startIndex] = temp;
 
+        return end;
+    }
+
+    public static void quickSort(int[] input, int startIndex, int endIndex) {
+        // your code goes here
+        if(startIndex < endIndex){
+        int pivotPos = partition(input,startIndex,endIndex);
+        quickSort(input,startIndex,pivotPos-1);
+        quickSort(input,pivotPos+1,endIndex);
+        }
+    }
+    public static void quickSort(int[] input) {
+        quickSort(input,0,input.length-1);
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {2,8,1,5,6,4};
+        quickSort(arr);
+        for(int i = 0;i<arr.length;i++){
+            System.out.print(arr[i] + " ");
+        }
     }
 }

@@ -22,9 +22,22 @@ Sample Output:
  */
 public class a11_BinaryRecursion {
     // element - number to be searched
+    public static int binarySearch(int input[],int start,int end, int element) {
+        if(start > end) return -1;
+
+        int mid;
+        mid = (start + end)/2;
+        if(input[mid] == element) return mid;
+        else if(input[mid] > element)
+            return binarySearch(input,start,mid-1,element);
+        else
+            return binarySearch(input, mid+1, end, element);
+
+    }
+
     public static int binarySearch(int input[], int element) {
         // Write your code here
+        return binarySearch(input,0,input.length-1,element);
 
-        return element;
     }
 }
