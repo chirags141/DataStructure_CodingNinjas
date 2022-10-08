@@ -21,4 +21,23 @@ Sample Output :
 1
  */
 public class a6_FirstIndexOfNumber {
+    public static int firstIndex(int input[], int x, int startIndex){
+        if( startIndex == input.length-1){
+            return input[startIndex] == x ? startIndex : -1 ;
+        }
+        if(input[startIndex] == x )
+            return startIndex;
+        int ans;
+        ans = firstIndex(input,x,startIndex+1);
+        return ans;
+    }
+
+    public static int firstIndex(int input[], int x) {
+        return firstIndex(input,x,0);
+    }
+
+    public static void main(String[] args) {
+        int arr[] = {2,1,3,5,6,8};
+        System.out.println(firstIndex(arr,1));
+    }
 }
