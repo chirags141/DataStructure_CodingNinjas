@@ -77,10 +77,13 @@ public class LinkedListUse {
     public static void main(String[] args) {
 
         LinkedListNode<Integer> head = takeInput();
-        print(head);
 
-        LinkedListNode mid = a1_MidPointOfLL.midPoint(head);
-        System.out.println(mid.data);
+        LinkedListNode<Integer> newHead = a6_ReverseLLIterative.reverse_I(head);
+        print(head);
+        /*
+        LinkedListNode head1 = a5_ReverseRecursiveLL.reverseLinkedListRec(head);
+        print(head1);
+ */
 
     }
 
