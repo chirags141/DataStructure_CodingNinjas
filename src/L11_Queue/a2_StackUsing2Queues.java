@@ -1,10 +1,10 @@
-package L10_Stacks;
+package L11_Queue;
 /*
- Code : Stack Using LL
+Stack Using 2 Queues
 Send Feedback
-Implement a Stack Data Structure specifically to store integer data using a Singly Linked List.
-The data members should be private.
-You need to implement the following public functions :
+Implement a Stack Data Structure specifically to store integer data using two Queues. You have to implement it in such a way that the push operation is done in O(1) time and the pop and top operations are done in O(N) time.
+There should be two data members, both being Queues to store the data internally. You may use the inbuilt Queue.
+Implement the following public functions :
 1. Constructor:
 It initialises the data members as required.
 2. push(data) :
@@ -36,7 +36,7 @@ Every 'q' lines represent an operation that needs to be performed.
 For the push operation, the input line will contain two integers separated by a single space, representing the type of the operation in integer and the integer data being pushed into the stack.
 
 For the rest of the operations on the stack, the input line will contain only one integer value, representing the query being performed on the stack.
- Output Format:
+Output Format:
 For Query-1, you do not need to return anything.
 For Query-2, prints the data being popped from the stack.
 For Query-3, prints the data kept on the top of the stack.
@@ -44,10 +44,10 @@ For Query-4, prints the current size of the stack.
 For Query-5, prints 'true' or 'false'(without quotes).
 
 Output for every query will be printed in a separate line.
-Note:
+ Note:
 You are not required to print anything explicitly. It has already been taken care of. Just implement the function.
- Constraints:
-1 <= q <= 10^5
+Constraints:
+1 <= q <= 100
 1 <= x <= 5
 -2^31 <= data <= 2^31 - 1 and data != -1
 
@@ -73,87 +73,103 @@ Sample Input 2:
 2
 1 10
 5
-Sample Output 2:
+ Sample Output 2:
 true
 -1
 false
- Explanation of Sample Input 2:
-There are 4 queries in total.
-The first one is Query-5: It tells whether the stack is empty or not. Since the stack is empty at this point, the output is  'true'.
-
-The second one is Query-2: It pops the data from the stack. Since at this point in time, no data exist in the stack hence, it prints -1.
-
-The third one is Query-1: It pushes the specified data 10 into the stack and since the function doesn't return anything, nothing is printed.
-
-The fourth one is Query-5: It tells whether the stack is empty at this point or not. Since the stack has one element and hence it is not empty, false is printed.
  */
-class Node {
-    int data;
-    Node next;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
 
-    public Node(int data) {
-        this.data = data;
-        this.next = null;
-    }
-
-}
-public class a1_StackUsingLL {
-
+public class a2_StackUsing2Queues {
     //Define the data members
-    private Node head;
-    private int size;
+    Queue<Integer> q1;
+    Queue<Integer> q2;
 
-    public a1_StackUsingLL() {
+    public a2_StackUsing2Queues() {
         //Implement the Constructor
-        head = null;
-        size = 0;
+        q1 = new LinkedList<>();
+        q2 = new LinkedList<>();
     }
 
-    /*----------------- Public Functions of LinkedList.Stack -----------------*/
+
+
+    /*----------------- Public Functions of Stack -----------------*/
 
 
     public int getSize() {
         //Implement the getSize() function
-        return size;
+        return q1.size();
     }
 
     public boolean isEmpty() {
         //Implement the isEmpty() function
-        return head == null;
+        return this.getSize() == 0;
     }
 
     public void push(int element) {
-        //Implement the push(element) function
-        Node newNode = new Node(element);
-        if(head == null){
-            head = newNode;
-            size++;
+        if(q1 == null){
+            q1.add(element);
         }else{
-            newNode.next = head;
-            head = newNode;
-            size++;
+            q2.add(element);
+            while(!q1.isEmpty()){
+                q2.add(q1.poll());
+            }
+            while(!q2.isEmpty())
+            {
+                q1.add(q2.poll());
+            }
         }
     }
 
     public int pop() {
-        //Implement the pop() function
-        if(head == null){
-            size=0;
-            return -1;
-        }
-        else
-        {
-            int temp = head.data;
-            head = head.next;
-            size--;
-            return temp;
+        if(q1.size() == 0) return -1;
+        return q1.poll();
+    }
+
+    public int top() {
+        //Implement the top() function
+        if(q1.size() == 0) return -1;
+        return q1.peek();
+    }
+
+    private static Scanner s = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        a2_StackUsing2Queues stack = new a2_StackUsing2Queues();
+
+        int q = s.nextInt();
+
+        while (q > 0) {
+            int choice, input;
+            choice = s.nextInt();
+
+            switch(choice) {
+                case 1:
+                    input = s.nextInt();
+                    stack.push(input);
+                    break;
+
+                case 2:
+                    System.out.println(stack.pop());
+                    break;
+
+                case 3:
+                    System.out.println(stack.top());
+                    break;
+
+                case 4:
+                    System.out.println(stack.getSize());
+                    break;
+
+                default:
+                    System.out.println((stack.isEmpty()) ? "true" : "false");
+            }
+
+            q -= 1;
         }
 
     }
-    public int top() {
-        if(head == null){
-            return -1;
-        }
-        return head.data;
-    }
+
 }
