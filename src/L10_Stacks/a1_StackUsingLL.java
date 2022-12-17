@@ -87,5 +87,73 @@ The third one is Query-1: It pushes the specified data 10 into the stack and sin
 
 The fourth one is Query-5: It tells whether the stack is empty at this point or not. Since the stack has one element and hence it is not empty, false is printed.
  */
+class Node {
+    int data;
+    Node next;
+
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+
+}
 public class a1_StackUsingLL {
+
+    //Define the data members
+    private Node head;
+    private int size;
+
+    public a1_StackUsingLL() {
+        //Implement the Constructor
+        head = null;
+        size = 0;
+    }
+
+    /*----------------- Public Functions of LinkedList.Stack -----------------*/
+
+
+    public int getSize() {
+        //Implement the getSize() function
+        return size;
+    }
+
+    public boolean isEmpty() {
+        //Implement the isEmpty() function
+        return head == null;
+    }
+
+    public void push(int element) {
+        //Implement the push(element) function
+        Node newNode = new Node(element);
+        if(head == null){
+            head = newNode;
+            size++;
+        }else{
+            newNode.next = head;
+            head = newNode;
+            size++;
+        }
+    }
+
+    public int pop() {
+        //Implement the pop() function
+        if(head == null){
+            size=0;
+            return -1;
+        }
+        else
+        {
+            int temp = head.data;
+            head = head.next;
+            size--;
+            return temp;
+        }
+
+    }
+    public int top() {
+        if(head == null){
+            return -1;
+        }
+        return head.data;
+    }
 }

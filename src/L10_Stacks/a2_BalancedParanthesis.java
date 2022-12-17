@@ -1,4 +1,7 @@
 package L10_Stacks;
+
+import java.util.Stack;
+
 /*
 Code : Balanced Parenthesis
 Send Feedback
@@ -32,4 +35,33 @@ Explanation to Sample Input 2:
 The initial two pairs of brackets are balanced. But when you see, the opening bracket at the fourth index doesn't have its corresponding closing bracket which makes it imbalanced and in turn, making the whole expression imbalanced. Hence the output prints 'false'.
  */
 public class a2_BalancedParanthesis {
+
+    public static boolean isBalanced(String s) {
+        char c;
+        Stack<Character> open = new Stack<>();
+        boolean balanced = true;
+        for(int i = 0;i<s.length();i++){
+            c = s.charAt(i);
+
+            if(c == '(' || c == '{' || c == '['){
+                open.push(c);
+            }
+            else if ( c == ')' || c == '}' || c == ']' ){
+                if(open.size() == 0){
+                    return false;
+                }
+                else if((c == ')' && open.peek() == '(') || (c == '}' && open.peek() == '{') || (c == ']' && open.peek() == '[')){
+                    open.pop();
+                    balanced = true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        if(open.size() >0){
+            return false;
+        }
+        return balanced;
+    }
 }

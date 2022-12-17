@@ -1,4 +1,7 @@
 package L10_Stacks;
+
+import java.util.Stack;
+
 /*
 Check redundant brackets
 Send Feedback
@@ -35,4 +38,23 @@ Sample Output 2:
 false
  */
 public class a3_CheckingRedundantBrackets {
+
+    public static boolean checkRedundantBrackets(String s) {
+        //Your code goes here
+        Stack<Character> stack = new Stack<>();
+        for(int i = 0; i< s.length();i++){
+            char ch = s.charAt(i);
+            if(ch == '(' || ( ch == '+' || ch == '*' || ch == '-' || ch == '/')){
+                stack.push(ch);
+            }else if(ch == ')'){
+                if(stack.peek() == '(')
+                    return true;
+                while(stack.peek() != '(' ){
+                    stack.pop();
+                }
+                stack.pop();
+            }
+        }
+        return false;
+    }
 }
