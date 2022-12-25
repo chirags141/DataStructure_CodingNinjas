@@ -1,5 +1,53 @@
-package L19_PriorityQueue2;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.PriorityQueue;
+
+
+class MinPQComparator implements Comparator<Integer>{
+
+    @Override
+    public int compare(Integer o1, Integer o2) {
+        // TODO Auto-generated method stub
+        if(o1 < o2){
+            return -1;
+        }else if(o1 > o2){
+            return 1;
+        }
+        return 0;
+    }
+
+}
+
+class MaxPQComparator implements Comparator<Integer>{
+
+    @Override
+    public int compare(Integer o1, Integer o2) {
+        // TODO Auto-generated method stub
+        if(o1 < o2){
+            return 1;
+        }else if(o1 > o2){
+            return -1;
+        }
+        return 0;
+    }
+
+}
+
+class StringLengthComparator implements Comparator<String>{
+
+    @Override
+    public int compare(String o1, String o2) {
+        if(o1.length() < o2.length()){
+            return 1;
+        }else if(o1.length() > o2.length()){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
+
+}
 
 public class PriorityQueueUse {
 
@@ -8,7 +56,7 @@ public class PriorityQueueUse {
         int childIndex = i;
         int parentIndex = (childIndex - 1) / 2;
         while(childIndex > 0){
-            if(arr[childIndex] < arr[parentIndex] ){
+            if(arr[childIndex] < arr[parentIndex] ){ // compare(o1, o2) < 0
                 int temp = arr[childIndex];
                 arr[childIndex] = arr[parentIndex];
                 arr[parentIndex] = temp;
@@ -68,30 +116,28 @@ public class PriorityQueueUse {
         for(int j = arr.length - k; j < arr.length; j++){
             arr[j] = pq.remove();
         }
-
     }
 
     public static void main(String[] args) {
-        int arr[] = {2,4,1,9,6,8};
-        int k = 3;
-        sortKSorted(arr, k);
+
+        String arr[] = {"this", "at", "a", "their", "queues"};
+//        StringLengthComparator stringComparator = new StringLengthComparator();
+//        PriorityQueue<String> pq = new PriorityQueue<>(stringComparator);
+        PriorityQueue<String> pq = new PriorityQueue<>();
+//		PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+
+        //MinPQComparator minComparator = new MinPQComparator();
+//		MaxPQComparator maxPQComparator = new MaxPQComparator();
+//		PriorityQueue<Integer> pq = new PriorityQueue<>(maxPQComparator);
+
+        //	int arr[] = {9,1,0,4,7,3};
         for(int i = 0; i < arr.length; i++){
-            System.out.print(arr[i] + " ");
+            pq.add(arr[i]);
         }
 
-//		PriorityQueue<Integer> pq = new PriorityQueue<>();
-//		int arr[] = {9,1,0,4,7,3};
-//		for(int i = 0; i < arr.length; i++){
-//			pq.add(arr[i]);
-//
-//		}
-//
-////		System.out.println(pq.element());
-//		while(! pq.isEmpty()){
-//			System.out.print(pq.remove() + " ");
-//		}
-
-
+        //	System.out.println(pq.element());
+        while(! pq.isEmpty()){
+            System.out.print(pq.remove() + " ");
+        }
     }
-
 }
