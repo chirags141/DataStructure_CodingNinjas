@@ -64,7 +64,7 @@ You need to print all nodes in the recursive format in different lines.
  *	}
  */
 
-public class a2_BinarySearchTree {
+public class BinarySearchTree {
     private BinaryTreeNode<Integer> root;
 
     private BinaryTreeNode<Integer> insert(BinaryTreeNode<Integer> root,int data){
